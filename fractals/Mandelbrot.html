@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mandelbrot Set - Fractal Visualizations</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #e0f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      background: #00796b;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    canvas {
+      border: 2px solid #00796b;
+      margin-top: 1rem;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      text-decoration: none;
+      color: #00796b;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .back-link:hover {
+      color: #005f56;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Mandelbrot Set</h1>
+  </header>
+  <main>
+    <div id="sketch-holder"></div>
+    <a href="../index.html" class="back-link">&larr; Back to Home</a>
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+  <script>
+    function setup() {
+      let canvas = createCanvas(720, 680);
+      canvas.parent('sketch-holder');
+      pixelDensity(1);
+      noLoop();
+    }
+    function draw() {
+      var maxi = 100;
+      loadPixels();
+      for (var x = 0; x < width; x++) {
+        for (var y = 0; y < height; y++) {
+          var a = map(x, 0, width, -2.5, 2.5);
+          var b = map(y, 0, height, -2.5, 2.5);
+          var ca = a, cb = b;
+          var n = 0;
+          while (n < maxi) {
+            var aa = a * a - b * b;
+            var bb = 2 * a * b;
+            a = aa + ca;
+            b = bb + cb;
+            if (abs(a + b) > 16) break;
+            n++;
+          }
+          var bright = map(n, 0, maxi, 0, 1);
+          bright = map(sqrt(bright), 0, 1, 0, 255);
+          if (n == maxi) bright = 0;
+          var pix = (x + y * width) * 4;
+          if (n == maxi) {
+            pixels[pix + 0] = bright;
+            pixels[pix + 1] = bright;
+            pixels[pix + 2] = 128;
+            pixels[pix + 3] = 255;
+          } else {
+            pixels[pix + 0] = bright;
+            pixels[pix + 1] = bright;
+            pixels[pix + 2] = bright;
+            pixels[pix + 3] = 255;
+          }
+        }
+      }
+      updatePixels();
+    }
+  </script>
+</body>
+</html>

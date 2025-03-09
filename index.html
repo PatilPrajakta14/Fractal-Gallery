@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fractal Visualizations</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #e0f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      background: #00796b;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    h1, h2 {
+      margin-bottom: 1rem;
+    }
+    p {
+      margin-bottom: 1.5rem;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    li {
+      margin: 1rem;
+    }
+    a {
+      display: block;
+      text-decoration: none;
+      background: #00796b;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    a:hover {
+      background: #005f56;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Fractal Visualizations</h1>
+    <p>Where Mathematics Meets Art</p>
+  </header>
+  <main>
+    <h2>Select a Fractal</h2>
+    <p>Explore the collection of fractal generators crafted with HTML, JavaScript, and p5.js.</p>
+    <ul>
+      <li><a href="./fractals/mandelbrot.html">Mandelbrot Set</a></li>
+      <li><a href="./fractals/kochpoly.html">Koch Polygon</a></li>
+      <li><a href="./fractals/ntree.html">N-Tree Fractal</a></li>
+      <li><a href="./fractals/snowflake.html">Koch Snowflake</a></li>
+    </ul>
+  </main>
+</body>
+</html>

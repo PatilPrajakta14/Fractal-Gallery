@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Koch Snowflake - Fractal Visualizations</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #e0f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      background: #00796b;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    canvas {
+      border: 2px solid #00796b;
+      margin-top: 1rem;
+      background: #000;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      text-decoration: none;
+      color: #00796b;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .back-link:hover {
+      color: #005f56;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Koch Snowflake</h1>
+  </header>
+  <main>
+    <canvas id="snowCanvas" width="700" height="700"></canvas>
+    <a href="../index.html" class="back-link">&larr; Back to Home</a>
+  </main>
+
+  <script>
+    var canvas = document.getElementById("snowCanvas");
+    var ctx = canvas.getContext("2d");
+    ctx.strokeStyle = "green";
+    function koch(x1, y1, x2, y2, it) {
+      var angle = 60 * Math.PI / 180;
+      var x3 = (2 * x1 + x2) / 3;
+      var y3 = (2 * y1 + y2) / 3;
+      var x4 = (x1 + 2 * x2) / 3;
+      var y4 = (y1 + 2 * y2) / 3;
+      var x = x3 + (x4 - x3) * Math.cos(angle) + (y4 - y3) * Math.sin(angle);
+      var y = y3 - (x4 - x3) * Math.sin(angle) + (y4 - y3) * Math.cos(angle);
+      if (it > 0) {
+        koch(x1, y1, x3, y3, it - 1);
+        koch(x3, y3, x, y, it - 1);
+        koch(x, y, x4, y4, it - 1);
+        koch(x4, y4, x2, y2, it - 1);
+      } else {
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x3, y3);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x3, y3);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x4, y4);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x4, y4);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+      }
+    }
+    koch(200, 266, 100, 100, 3);
+    koch(100, 100, 300, 100, 3);
+    koch(300, 100, 200, 266, 3);
+  </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>N-Tree Fractal - Fractal Visualizations</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #e0f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      background: #00796b;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    canvas {
+      border: 2px solid #00796b;
+      margin-top: 1rem;
+    }
+    .btn-refresh {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      background: #00796b;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+    .btn-refresh:hover {
+      background: #005f56;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      text-decoration: none;
+      color: #00796b;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .back-link:hover {
+      color: #005f56;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>N-Tree Fractal</h1>
+  </header>
+  <main>
+    <canvas id="treeCanvas" width="700" height="500"></canvas>
+    <br>
+    <button id="refreshBtn" class="btn-refresh">Generate New Fractal Tree</button>
+    <br>
+    <a href="../index.html" class="back-link">&larr; Back to Home</a>
+  </main>
+
+  <script>
+    var canvas = document.getElementById("treeCanvas");
+    var ctx = canvas.getContext("2d");
+    const refreshButton = document.getElementById('refreshBtn');
+    refreshButton.addEventListener('click', () => location.reload());
+    
+    var RAD = 0.017453292, FR = 0.7, LR = 0.45;
+    let Point = { x: 0, y: 0 };
+    let p = Object.create(Point);
+    
+    function Tree(p, A, L, F, n, x, y) {
+      let p2 = Object.create(Point);
+      if (n > 0) {
+        p2.x = p.x + L * Math.cos(RAD * A);
+        p2.y = p.y + L * Math.sin(RAD * A);
+        ctx.beginPath();
+        ctx.moveTo(p.x + x, -p.y + 479 + y);
+        ctx.lineTo(p2.x + x, -p2.y + 479 + y);
+        ctx.stroke();
+        let num = Math.random() * 20;
+        let delang = num > 1 ? F / (num - 1) : 0;
+        let ang = A - F / 2 - delang;
+        for (let i = 1; i <= num; i++) {
+          ang += delang;
+          Tree(p2, ang, L * LR * Math.random() * 5 / 3, F * FR, n - 1, x, y);
+        }
+      }
+    }
+    
+    var A = 90, L = 100, F = 150, x = 0, y = 150, n = 5;
+    p.x = 320; p.y = 240;
+    Tree(p, A, L, F, n, x, y);
+  </script>
+</body>
+</html>
